@@ -9,15 +9,6 @@ A simple docker container that will receive messages from a RabbitMQ queue and s
 
 ## Setup
 
-This setup will go through creating a RabbitMQ queue on the cluster and deploying this consumer with the `ScaledObject` to scale via KEDA.  If you already have RabbitMQ you can use your existing queues.
-
-First you should clone the project:
-
-```cli
-git clone https://github.com/kedacore/sample-go-rabbitmq
-cd sample-go-rabbitmq
-```
-
 ### Creating a RabbitMQ queue
 
 #### [Install Helm](https://helm.sh/docs/using_helm/)
@@ -28,13 +19,6 @@ Since the Helm stable repository was migrated to the [Bitnami Repository](https:
 
 ```cli
 helm repo add bitnami https://charts.bitnami.com/bitnami
-```
-
-##### Helm 3
-
-RabbitMQ Helm Chart version 7.0.0 or later
-
-```cli
 helm install rabbitmq --set auth.username=user --set auth.password=PASSWORD bitnami/rabbitmq --wait
 ```
 
