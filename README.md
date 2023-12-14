@@ -38,30 +38,6 @@ RabbitMQ Helm Chart version 7.0.0 or later
 helm install rabbitmq --set auth.username=user --set auth.password=PASSWORD bitnami/rabbitmq --wait
 ```
 
-**Notes:**
-
-* If you are running the rabbitMQ image on KinD, you will run into permission issues unless you set `volumePermissions.enabled=true`. Use the following command if you are using KinD:
-
-    ```cli
-    helm install rabbitmq --set auth.username=user --set auth.password=PASSWORD --set volumePermissions.enabled=true bitnami/rabbitmq --wait
-    ```
-
-* With RabbitMQ Helm Chart version 6.x.x or earlier, username and password should be specified with rabbitmq.username and rabbitmq.password parameters [https://hub.helm.sh/charts/bitnami/rabbitmq](https://hub.helm.sh/charts/bitnami/rabbitmq)
-
-##### Helm 2
-
-RabbitMQ Helm Chart version 7.0.0 or later
-
-```cli
-helm install --name rabbitmq --set auth.username=user --set auth.password=PASSWORD bitnami/rabbitmq --wait
-```
-
-**Notes:**
-
-* If running this demo on a computer with a ARM Processor, refer to the earlier note
-* If using KinD refer to the earlier note
-* For RabbitMQ Helm Chart version 6.x.x or earlier, refer to the earlier note
-
 #### Wait for RabbitMQ to Deploy
 
 ⚠️ Be sure to wait until the deployment has completed before continuing. ⚠️
@@ -72,12 +48,19 @@ kubectl get po
 NAME         READY   STATUS    RESTARTS   AGE
 rabbitmq-0   1/1     Running   0          3m3s
 ```
-#### Use `kubectl tunnel` to be able to view the RMQ frontend
-```
-kubectl port-forward rabbitmq-0 15672:15672 
-```
-Then go to `localhost:15672` to view the GUI for rabbitmq
 
+To access for outside the cluster, perform the following steps:
+
+To Access the RabbitMQ AMQP port:
+```
+    echo "URL : amqp://127.0.0.1:5672/"
+    kubectl port-forward --namespace default svc/rabbitmq 5672:5672
+```
+To Access the RabbitMQ Management interface:
+```
+    echo "URL : http://127.0.0.1:15672/"
+    kubectl port-forward --namespace default svc/rabbitmq 15672:15672
+```
 ### Deploying a RabbitMQ consumer
 
 #### Deploy a consumer
