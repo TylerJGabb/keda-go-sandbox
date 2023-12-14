@@ -72,6 +72,11 @@ kubectl get po
 NAME         READY   STATUS    RESTARTS   AGE
 rabbitmq-0   1/1     Running   0          3m3s
 ```
+#### Use `kubectl tunnel` to be able to view the RMQ frontend
+```
+kubectl port-forward rabbitmq-0 15672:15672 
+```
+Then go to `localhost:15672` to view the GUI for rabbitmq
 
 ### Deploying a RabbitMQ consumer
 
