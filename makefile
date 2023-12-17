@@ -12,11 +12,11 @@ load:
 
 .PHONY: consumer
 consumer:
-	kubectl apply -f k8s-manifests/deploy-consumer.yaml
+	kubectl apply -f deploy/deploy-consumer.yaml
 
 .PHONY: producer
 producer:
-	kubectl apply -f k8s-manifests/deploy-publisher-job.yaml
+	kubectl apply -f deploy/deploy-publisher-job.yaml
 
 .PHONY: cluster
 cluster:
@@ -28,4 +28,5 @@ cluster:
 	helm repo update
 
 	helm install keda kedacore/keda --namespace keda --create-namespace
-	helm install --name rabbitmq --set auth.username=user --set auth.password=PASSWORD bitnami/rabbitmq --wait
+	helm install rabbitmq --set auth.username=user --set auth.password=PASSWORD bitnami/rabbitmq --wait
+	kubectl port-forward --namespace default svc/rabbitmq 15672:15672
