@@ -5,7 +5,6 @@ IMAGE_NAME = sample-go-rmq
 build:
 	docker build -t $(IMAGE_NAME):$(TAG) .
 
-
 .PHONY: load
 load:
 	minikube image load $(IMAGE_NAME):$(TAG)
@@ -29,4 +28,7 @@ cluster:
 
 	helm install keda kedacore/keda --namespace keda --create-namespace
 	helm install rabbitmq --set auth.username=user --set auth.password=PASSWORD bitnami/rabbitmq --wait
+
+.PHONY: port-forward
+port-forward:
 	kubectl port-forward --namespace default svc/rabbitmq 15672:15672

@@ -1,13 +1,14 @@
 # RabbitMQ consumer and sender
 
 # TL;DR;
-1. `make cluster`
-2. `make build`
-3. `make load`
-4. `make consumer`
-5. `make producer`
-6. http://localhost:15672 (user/PASSWORD)
-7. :eyes:
+1. `make cluster` (you need [minikube cli](https://minikube.sigs.k8s.io/docs/start/) installed)
+2. `make port-forward` (in a separate terminal)
+3. `make build`
+4. `make load`
+5. `make consumer`
+6. `make producer`
+7. http://localhost:15672 (user/PASSWORD)
+8. :eyes:
 
 A simple docker container that will receive messages from a RabbitMQ queue and scale via KEDA.  The receiver will receive a single message at a time (per instance), and sleep for 1 second to simulate performing work.  When adding a massive amount of queue messages, KEDA will drive the container to scale out according to the event source (RabbitMQ).
 
